@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://oac8dg12o21x"]
+
+[ext_resource type="Script" path="res://fish.cs" id="1_2dqa7"]
+[ext_resource type="Texture2D" uid="uid://boyytny45yk8s" path="res://vecteezy_an-8-bit-retro-styled-pixel-art-illustration-of-a-blue-fish_19527069_202.png" id="1_di42u"]
+[ext_resource type="Texture2D" uid="uid://cxb6x84552o8y" path="res://ffff.png" id="2_chhxh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r2ngn"]
+animations = [{
+"frames": [{
+"duration": 3.0,
+"texture": ExtResource("1_di42u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_chhxh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mpugh"]
+radius = 24.0
+height = 96.0
+
+[node name="fish" type="RigidBody2D"]
+collision_mask = 0
+input_pickable = true
+gravity_scale = 0.0
+script = ExtResource("1_2dqa7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.025, 0.025)
+sprite_frames = SubResource("SpriteFrames_r2ngn")
+frame_progress = 0.581106
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_mpugh")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

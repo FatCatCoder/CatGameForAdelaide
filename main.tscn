@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://bljqe6vajn7il"]
+
+[ext_resource type="Script" path="res://main.cs" id="1_dblt1"]
+[ext_resource type="PackedScene" uid="uid://oac8dg12o21x" path="res://fish.tscn" id="2_31tyd"]
+[ext_resource type="PackedScene" uid="uid://biuv3sewvb6cf" path="res://hud.tscn" id="3_fxx2n"]
+[ext_resource type="PackedScene" uid="uid://dmxxvx03pf7tf" path="res://player.tscn" id="3_y1h38"]
+[ext_resource type="Texture2D" uid="uid://bbb7bf47slmc3" path="res://waterbackground.jpg" id="5_ik0x3"]
+
+[sub_resource type="Curve2D" id="Curve2D_cyn3n"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1, -2, 0, 0, 0, 0, 478, -1, 0, 0, 0, 0, 479, 719, 0, 0, 0, 0, -1, 719, 0, 0, 0, 0, -1, -2)
+}
+point_count = 5
+
+[node name="Node" type="Node"]
+script = ExtResource("1_dblt1")
+FishScene = ExtResource("2_31tyd")
+
+[node name="Player" parent="." instance=ExtResource("3_y1h38")]
+
+[node name="StartTimer" type="Timer" parent="."]
+
+[node name="FishTimer" type="Timer" parent="."]
+wait_time = 1.037
+autostart = true
+
+[node name="FishPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_cyn3n")
+
+[node name="FishSpawnLocation" type="PathFollow2D" parent="FishPath"]
+position = Vector2(-1, -2)
+rotation = 0.00208768
+
+[node name="HUD" parent="." instance=ExtResource("3_fxx2n")]
+
+[node name="Marissa-rodriguez-2mKyevga4jE-unsplash" type="Sprite2D" parent="."]
+position = Vector2(242, 365)
+scale = Vector2(0.31, 0.31)
+texture = ExtResource("5_ik0x3")
+
+[connection signal="timeout" from="FishTimer" to="." method="OnFishTimerTimeout"]
